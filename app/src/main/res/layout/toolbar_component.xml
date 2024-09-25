@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#1f1f1f"
-    android:layout_height="@dimen/_60sdp">
+    android:layout_height="@dimen/_60sdp"
+
+    android:background="@drawable/toolbar_round">
 
 
     <TextView
+        android:id="@+id/textToolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_17ssp"
-        android:fontFamily="@font/poppins_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
