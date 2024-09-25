@@ -1,0 +1,54 @@
+package com.example.wallpaperapp.fragments
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.example.wallpaperapp.R
+import com.example.wallpaperapp.databinding.FragmentSplashBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+class SplashFragment : Fragment() {
+
+
+    private lateinit var binding: FragmentSplashBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSplashBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        val fadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        val slideUp = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up)
+
+        binding.apply {
+
+            txtSplashWelcome.visibility = View.GONE
+            splashLayout.visibility = View.GONE
+            buttonStart.visibility = View.GONE
+        }
+
+        lifecycleScope.launch {
+            delay(2000)
+
+            binding.txtSplashWelcome.visibility = View.VISIBLE
+            binding.splashLayout.visibility = View.VISIBLE
+            binding.buttonStart.visibility = View.VISIBLE
+            binding.buttonStart.startAnimation(slideUp)
+            binding.txtSplashWelcome.startAnimation(slideUp)
+            binding.splashLayout.startAnimation(fadeIn)
+        }
+
+    }
+}
