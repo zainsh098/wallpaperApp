@@ -30,12 +30,12 @@ class WallpaperAdapter(private val listener: onImageClick) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val wallpaper = wallpapers[position]
         Glide.with(holder.itemView.context)
-            .load(wallpaper.src.portrait)  // Adjust the URL based on the preferred image size
+            .load(wallpaper.src.portrait)
             .placeholder(R.drawable.home)
             .into(holder.binding.imageViewCategory)
 
         holder.binding.imageViewCategory.setOnClickListener {
-            listener.onPhotoClick(wallpaper.src.portrait) // Pass the clicked wallpaper to the fragment
+            listener.onPhotoClick(wallpaper.src.original)
         }
 
     }
@@ -43,7 +43,7 @@ class WallpaperAdapter(private val listener: onImageClick) :
     // Method to update wallpapers in adapter
     fun updateWallpapers(newWallpapers: List<Photo>) {
         wallpapers = newWallpapers
-        notifyDataSetChanged()  // Notify the adapter to rebind views
+        notifyDataSetChanged()
     }
 
 
