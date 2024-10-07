@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/navigation_books"
-        android:icon="@drawable/rounded_add_home_24"
-        android:title="Home" />
+        android:icon="@drawable/home"
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_discovery"
-        android:icon="@drawable/rounded_add_home_24"
-        android:title="Search" />
+        android:icon="@drawable/search"
+        android:title="@string/search" />
     <item
         android:id="@+id/navigation_shelves"
-        android:icon="@drawable/rounded_add_home_24"
-        android:title="Favourite" />
+        android:icon="@drawable/favourite"
+        android:title="@string/favourite" />
 </menu>
