@@ -6,16 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
-import com.example.wallpaperapp.adapter.HomeAdapter
-import com.example.wallpaperapp.adapter.onCategoryItemClick
 import com.example.wallpaperapp.databinding.FragmentHomeBinding
-import com.example.wallpaperapp.viewmodel.HomeViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment(), onCategoryItemClick {
 
@@ -25,8 +19,7 @@ class HomeFragment : Fragment(), onCategoryItemClick {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
@@ -49,6 +42,6 @@ class HomeFragment : Fragment(), onCategoryItemClick {
         val bundle = Bundle().apply {
             putString("name", name)
         }
-        findNavController().navigate(R.id.action_homeFragment_to_wallpaperFragment,bundle)
+        findNavController().navigate(R.id.action_homeFragment_to_wallpaperFragment, bundle)
     }
 }

@@ -1,8 +1,9 @@
-package com.example.wallpaperapp.adapter
-
+package com.example.wallpaperapp.fragments.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.HomeCardItemBinding
 import com.example.wallpaperapp.model.Category
 
@@ -30,18 +31,14 @@ class HomeAdapter(
             listener.onClick(category.name)
         }
 
-
-        // Load the image using Glide
-//        Glide.with(holder.itemView.context)
-//            .load(category.imageUrl)
-//            .into(holder.binding.imageViewCategory)
-
+        Glide.with(holder.itemView.context)
+            .load(category.image)
+            .placeholder(R.drawable.home)
+            .into(holder.binding.imageViewCategory)
     }
-
 
 }
 interface onCategoryItemClick {
     fun onClick(name: String)
-
 
 }
