@@ -1,9 +1,11 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -32,9 +34,18 @@ class WallpaperFragment : Fragment(), onImageClick {
         adapter = WallpaperAdapter(this)
         binding.wallapaperRecycler.layoutManager = GridLayoutManager(context, 2)
         binding.wallapaperRecycler.adapter = adapter
+
+        Log.d("nammsmd", category.toString())
+
         viewModel.getWallpapers(category!!).observe(viewLifecycleOwner) { wallpapers ->
             adapter.updateWallpapers(wallpapers)
         }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun onPhotoClick(urlImage: String) {
