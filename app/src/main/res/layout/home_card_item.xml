@@ -32,7 +32,7 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:background="#92000000"
+                android:background="#4D000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -45,7 +45,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:text="Nature" />
             </LinearLayout>

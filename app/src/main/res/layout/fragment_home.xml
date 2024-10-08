@@ -41,7 +41,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/home_card_item" />
 
-
     </LinearLayout>
 
 

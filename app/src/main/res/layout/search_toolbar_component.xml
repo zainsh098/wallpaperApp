@@ -6,11 +6,12 @@
     android:background="@drawable/toolbar_round">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginHorizontal="@dimen/_40sdp"
-        app:boxBackgroundMode="outline"
         android:layout_marginTop="@dimen/_5sdp"
+        app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="@dimen/_5sdp"
         app:boxCornerRadiusBottomStart="@dimen/_5sdp"
         app:boxCornerRadiusTopEnd="@dimen/_5sdp"
@@ -20,11 +21,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchTextField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/search"
-            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:inputType="text"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/searchImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
