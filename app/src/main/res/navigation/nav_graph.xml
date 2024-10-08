@@ -25,6 +25,15 @@
         <action
             android:id="@+id/action_homeFragment_to_wallpaperFragment"
             app:destination="@id/wallpaperFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment2"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/wallpaperFragment"
@@ -38,5 +47,39 @@
         android:id="@+id/fullScreenImageFragment"
         android:name="com.example.wallpaperapp.fragments.fullscreenimage.FullScreenImageFragment"
         android:label="fragment_full_screen_image"
-        tools:layout="@layout/fragment_full_screen_image" />
+        tools:layout="@layout/fragment_full_screen_image" >
+        <action
+            android:id="@+id/action_fullScreenImageFragment_to_wallpaperFragment"
+            app:destination="@id/wallpaperFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.wallpaperapp.fragments.favourite.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_searchFragment2"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.wallpaperapp.fragments.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

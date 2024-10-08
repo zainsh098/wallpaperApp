@@ -38,9 +38,10 @@ class HomeAdapter(
 
     }
 
-    interface onCategoryItemClick {
-        fun onClick(name: String)
+
+}
+interface onCategoryItemClick {
+    fun onClick(name: String)
 
 
-    }
 }

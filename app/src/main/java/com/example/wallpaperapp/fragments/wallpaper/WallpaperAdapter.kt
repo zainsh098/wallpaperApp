@@ -46,7 +46,6 @@ class WallpaperAdapter(private val listener: onImageClick) :
         notifyDataSetChanged()
     }
 
-
 }
 
 interface onImageClick {

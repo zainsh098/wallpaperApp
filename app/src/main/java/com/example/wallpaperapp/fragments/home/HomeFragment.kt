@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.adapter.HomeAdapter
+import com.example.wallpaperapp.adapter.onCategoryItemClick
 import com.example.wallpaperapp.databinding.FragmentHomeBinding
 import com.example.wallpaperapp.viewmodel.HomeViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeFragment : Fragment(), HomeAdapter.onCategoryItemClick {
+class HomeFragment : Fragment(), onCategoryItemClick {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeAdapter: HomeAdapter
@@ -31,18 +35,20 @@ class HomeFragment : Fragment(), HomeAdapter.onCategoryItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeAdapter = HomeAdapter(homeViewModel.categories, this)
-        binding.toolbarComponent.textToolbar.text = "Wallify"
+        binding.toolbarComponent.textToolbar.text = getString(R.string.wallify)
         binding.homeRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.homeRecycler.adapter = homeAdapter
+
+
+//        val navController = NavHostFragment.findNavController(this)
+//        binding.bottomNavView.setupWithNavController(navController)
+
     }
 
     override fun onClick(name: String) {
-
         val bundle = Bundle().apply {
             putString("name", name)
         }
         findNavController().navigate(R.id.action_homeFragment_to_wallpaperFragment,bundle)
-
-
     }
 }

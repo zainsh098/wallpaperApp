@@ -11,7 +11,6 @@ import com.example.wallpaperapp.databinding.FragmentFullScreenImageBinding
 
 class FullScreenImageFragment : Fragment() {
 
-
     private lateinit var binding: FragmentFullScreenImageBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,13 +24,10 @@ class FullScreenImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val url = arguments?.getString("image")
-
         Glide.with(this)
             .load(url)
             .placeholder(R.drawable.home)
             .into(binding.fullImage)
-
-
     }
 
 
