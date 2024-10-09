@@ -23,7 +23,7 @@ class WallpaperViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.getWallpapers(query)
-                if (response.photos.isNullOrEmpty()) {
+                if (response.photos.isEmpty()) {
                     _errorMessage.value = "No wallpapers found for $query"
                 } else {
                     _wallpapers.value = response.photos

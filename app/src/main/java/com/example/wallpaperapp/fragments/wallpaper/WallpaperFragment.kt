@@ -29,14 +29,21 @@ class WallpaperFragment : Fragment(), onImageClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val category = arguments?.getString("name")
         adapter = WallpaperAdapter(this)
-        binding.wallapaperRecycler.layoutManager = GridLayoutManager(context, 2)
-        binding.wallapaperRecycler.adapter = adapter
+        val category = arguments?.getString("name")
+
+        binding.apply {
+            wallapaperRecycler.layoutManager = GridLayoutManager(context, 2)
+            wallapaperRecycler.adapter = adapter
+            toolbarComponent.textToolbar.text = category.toString()
+
+            toolbarComponent.backArrow.setOnClickListener {
+                findNavController().navigate(R.id.action_wallpaperFragment_to_homeFragment)
+
+            }
+        }
 
         Log.d("nammsmd", category.toString())
-
         viewModel.getWallpapers(category!!).observe(viewLifecycleOwner) { wallpapers ->
             adapter.updateWallpapers(wallpapers)
         }
@@ -45,7 +52,6 @@ class WallpaperFragment : Fragment(), onImageClick {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onPhotoClick(urlImage: String) {

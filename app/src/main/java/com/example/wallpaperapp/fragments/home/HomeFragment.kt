@@ -31,11 +31,7 @@ class HomeFragment : Fragment(), onCategoryItemClick {
         binding.toolbarComponent.textToolbar.text = getString(R.string.wallify)
         binding.homeRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.homeRecycler.adapter = homeAdapter
-
-
-//        val navController = NavHostFragment.findNavController(this)
-//        binding.bottomNavView.setupWithNavController(navController)
-
+        binding.toolbarComponent.backArrow.visibility = View.GONE
     }
 
     override fun onClick(name: String) {

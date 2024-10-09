@@ -28,11 +28,11 @@ class SearchAdapter(private val listener: onImageClick) : RecyclerView.Adapter<S
 
         Glide.with(holder.itemView.context)
             .load(wallpaper.src.portrait)
-            .placeholder(R.drawable.home)
+            .placeholder(R.drawable.place_holderimage)
             .into(holder.binding.imageViewCategory)
 
         holder.binding.imageViewCategory.setOnClickListener {
-            listener.onPhotoClick(wallpaper.src.portrait)
+            listener.onPhotoClick(wallpaper.src.original)
         }
 
     }

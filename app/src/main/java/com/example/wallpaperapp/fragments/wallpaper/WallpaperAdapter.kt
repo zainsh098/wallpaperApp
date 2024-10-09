@@ -31,7 +31,7 @@ class WallpaperAdapter(private val listener: onImageClick) :
         val wallpaper = wallpapers[position]
         Glide.with(holder.itemView.context)
             .load(wallpaper.src.portrait)
-            .placeholder(R.drawable.home)
+            .placeholder(R.drawable.place_holderimage)
             .into(holder.binding.imageViewCategory)
 
         holder.binding.imageViewCategory.setOnClickListener {

@@ -30,11 +30,12 @@ class HomeAdapter(
         holder.binding.imageViewCategory.setOnClickListener {
             listener.onClick(category.name)
         }
+        holder.binding.imageViewCategory.setImageResource(category.image)
 
-        Glide.with(holder.itemView.context)
-            .load(category.image)
-            .placeholder(R.drawable.home)
-            .into(holder.binding.imageViewCategory)
+//        Glide.with(holder.itemView.context)
+//            .load(category.image)
+//            .placeholder(R.drawable.placeholder_image)
+//            .into(holder.binding.imageViewCategory)
     }
 
 }
