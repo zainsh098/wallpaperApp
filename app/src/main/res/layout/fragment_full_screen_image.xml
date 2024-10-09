@@ -10,6 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/fullImage"
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginHorizontal="@dimen/_80sdp"
+            android:layout_marginHorizontal="@dimen/_60sdp"
             android:layout_marginBottom="@dimen/_40sdp"
             android:orientation="horizontal">
 
@@ -62,6 +63,16 @@
                 android:background="@drawable/back_arrow_background"
                 android:padding="@dimen/_6sdp"
                 app:srcCompat="@drawable/download_file" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_setWallpaper"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:background="@drawable/back_arrow_background"
+                android:padding="@dimen/_6sdp"
+                app:srcCompat="@drawable/setimage" />
 
         </LinearLayout>
     </FrameLayout>

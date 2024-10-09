@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/lightBlack"
+    android:padding="@dimen/_16sdp">
+
+    <RadioGroup
+
+        android:id="@+id/wallpaperRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
+            android:id="@+id/radioHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home Screen" />
+
+        <RadioButton
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
+            android:id="@+id/radioLock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lock Screen" />
+
+        <RadioButton
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins"
+            android:id="@+id/radioBoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Both" />
+    </RadioGroup>
+</LinearLayout>
