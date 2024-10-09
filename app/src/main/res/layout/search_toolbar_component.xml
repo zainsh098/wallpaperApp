@@ -3,43 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_60sdp"
-    android:background="@drawable/toolbar_round">
+    android:background="@color/lightBlack">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+    <EditText
+        android:id="@+id/searchTextField"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginHorizontal="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="@dimen/_5sdp"
-        app:boxCornerRadiusBottomStart="@dimen/_5sdp"
-        app:boxCornerRadiusTopEnd="@dimen/_5sdp"
-        app:boxCornerRadiusTopStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:background="@color/black"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:maxLength="1"
+        android:maxLines="0"
+        android:paddingStart="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/lightGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchTextField"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/search"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
+    <ImageView
         android:id="@+id/searchImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/searchicon"
         android:textColor="@color/white"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTextField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
+        app:layout_constraintStart_toEndOf="@+id/searchTextField"
+        app:layout_constraintTop_toTopOf="@+id/searchTextField"
+        app:layout_constraintVertical_bias="0.769" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

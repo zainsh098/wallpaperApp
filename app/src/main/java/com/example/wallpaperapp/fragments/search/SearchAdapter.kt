@@ -24,8 +24,8 @@ class SearchAdapter(private val listener: onImageClick) : RecyclerView.Adapter<S
     }
 
     override fun onBindViewHolder(holder: SearchAdapter.MyViewHolder, position: Int) {
-
         val wallpaper = wallpapers[position]
+
         Glide.with(holder.itemView.context)
             .load(wallpaper.src.portrait)
             .placeholder(R.drawable.home)
