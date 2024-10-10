@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.FragmentHomeBinding
+import com.example.wallpaperapp.manager.CategoryManager
 
 class HomeFragment : Fragment(), onCategoryItemClick {
 
@@ -35,9 +36,10 @@ class HomeFragment : Fragment(), onCategoryItemClick {
     }
 
     override fun onClick(name: String) {
-        val bundle = Bundle().apply {
-            putString("name", name)
-        }
-        findNavController().navigate(R.id.action_homeFragment_to_wallpaperFragment, bundle)
+//        val bundle = Bundle().apply {
+//            putString("name", name)
+//        }
+        findNavController().navigate(R.id.action_homeFragment_to_wallpaperFragment)
+    CategoryManager.setCategoryName(name)
     }
 }
