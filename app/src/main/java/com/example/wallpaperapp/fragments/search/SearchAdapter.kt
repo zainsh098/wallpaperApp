@@ -1,6 +1,6 @@
 package com.example.wallpaperapp.fragments.search
 
-import Photo
+import com.example.wallpaperapp.model.Photo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
