@@ -89,6 +89,7 @@ class FullScreenImageViewModel : ViewModel() {
     fun setWallpaper(context: Context, bitmap: Bitmap, wallpaperType: Int) {
         try {
             val wallpaperManager = WallpaperManager.getInstance(context)
+
             when (wallpaperType) {
                 WallpaperManager.FLAG_SYSTEM -> {
                     wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)

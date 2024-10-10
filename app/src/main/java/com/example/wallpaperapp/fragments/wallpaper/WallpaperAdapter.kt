@@ -1,17 +1,17 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
-import Photo
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.WallpaperCardItemBinding
+import com.example.wallpaperapp.model.Photo
 
 class WallpaperAdapter(private val listener: onImageClick) :
-    RecyclerView.Adapter<WallpaperAdapter.MyViewHolder>() {
-
-    private var wallpapers: List<Photo> = listOf()
+    PagingDataAdapter<Photo, WallpaperAdapter.MyViewHolder>(WallpaperDiffCallback()) {
 
     class MyViewHolder(val binding: WallpaperCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -25,27 +25,30 @@ class WallpaperAdapter(private val listener: onImageClick) :
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = wallpapers.size
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val wallpaper = wallpapers[position]
-        Glide.with(holder.itemView.context)
-            .load(wallpaper.src.portrait)
-            .placeholder(R.drawable.place_holderimage)
-            .into(holder.binding.imageViewCategory)
+        val wallpaper = getItem(position)
+        if (wallpaper != null) {
+            Glide.with(holder.itemView.context)
+                .load(wallpaper.src.portrait)
+                .placeholder(R.drawable.place_holderimage)
+                .into(holder.binding.imageViewCategory)
 
-        holder.binding.imageViewCategory.setOnClickListener {
-            listener.onPhotoClick(wallpaper.src.original)
+            holder.binding.imageViewCategory.setOnClickListener {
+                listener.onPhotoClick(wallpaper.src.original)
+            }
+        }
+    }
+
+    // DiffUtil to efficiently update items
+    class WallpaperDiffCallback : DiffUtil.ItemCallback<Photo>() {
+        override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem.id == newItem.id
         }
 
+        override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem == newItem
+        }
     }
-
-    // Method to update wallpapers in adapter
-    fun updateWallpapers(newWallpapers: List<Photo>) {
-        wallpapers = newWallpapers
-        notifyDataSetChanged()
-    }
-
 }
 
 interface onImageClick {

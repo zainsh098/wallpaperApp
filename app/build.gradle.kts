@@ -43,6 +43,12 @@ android {
 
 dependencies {
 
+
+    implementation(libs.androidx.ui.tooling.preview.android)
+    val paging_version = "3.3.2"
+
+    implementation("androidx.paging:paging-runtime:$paging_version")
+
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:$room_version")
