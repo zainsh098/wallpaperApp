@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_fullScreenImageFragment_to_wallpaperFragment2"
             app:destination="@id/wallpaperFragment" />
+        <action
+            android:id="@+id/action_fullScreenImageFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -90,5 +93,8 @@
         <action
             android:id="@+id/action_searchFragment_to_fullScreenImageFragment"
             app:destination="@id/fullScreenImageFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment3"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

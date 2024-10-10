@@ -1,6 +1,5 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
-import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +20,8 @@ class WallpaperViewModel : ViewModel() {
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
+//    val isLoading=MutableLiveData<Boolean>()
+
 
     // Function to get paginated wallpapers
     fun getPagedWallpapers(query: String): Flow<PagingData<Photo>> {
@@ -36,11 +37,15 @@ class WallpaperViewModel : ViewModel() {
                     _errorMessage.value = "No wallpapers found for $query"
                 } else {
                     _wallpapers.value = response.photos
+
                 }
             } catch (e: Exception) {
                 _errorMessage.value = "Error fetching wallpapers: ${e.localizedMessage}"
+
             }
         }
+
         return wallpapers
+
     }
 }

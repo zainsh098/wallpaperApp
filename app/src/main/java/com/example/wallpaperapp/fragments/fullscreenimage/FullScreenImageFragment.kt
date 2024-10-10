@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.wallpaperapp.R
@@ -29,33 +30,41 @@ class FullScreenImageFragment : Fragment() {
         binding = FragmentFullScreenImageBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val url = arguments?.getString("image")
+
         Glide.with(this)
             .load(url)
             .placeholder(R.drawable.place_holderimage)
             .into(binding.fullImage)
 
-        binding.imageShare.setOnClickListener {
-            url?.let { shareImageUrl(it) }
-        }
-        binding.imageDownload.setOnClickListener {
-            url?.let {
-                viewModel.downloadAndSaveImage(
-                    requireContext(),
-                    it,
-                    "wallpaper_${System.currentTimeMillis()}"
-                )
+
+        binding.backArrow.setOnClickListener {
+            val origin = arguments?.getString("origin")
+            if (origin == "search") {
+                findNavController().navigate(R.id.action_fullScreenImageFragment_to_searchFragment)
+            } else {
+                findNavController().navigate(R.id.action_fullScreenImageFragment_to_wallpaperFragment)
             }
         }
-
-        binding.imageSetWallpaper.setOnClickListener {
-            url?.let { showSetWallpaperDialog(it) }
-        }
-    }
+        binding.apply {
+          imageShare.setOnClickListener {
+                url?.let { shareImageUrl(it) }
+            }
+            imageDownload.setOnClickListener {
+                url?.let {
+                    viewModel.downloadAndSaveImage(
+                        requireContext(),
+                        it,
+                        "wallpaper_${System.currentTimeMillis()}"
+                    )
+                }
+            }
+            imageSetWallpaper.setOnClickListener {
+                url?.let { showSetWallpaperDialog(it) }
+            }
+        } }
 
     private fun shareImageUrl(url: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)

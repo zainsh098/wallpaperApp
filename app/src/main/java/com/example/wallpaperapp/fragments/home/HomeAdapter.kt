@@ -1,9 +1,8 @@
 package com.example.wallpaperapp.fragments.home
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.HomeCardItemBinding
 import com.example.wallpaperapp.model.Category
 
@@ -39,6 +38,7 @@ class HomeAdapter(
     }
 
 }
+
 interface onCategoryItemClick {
     fun onClick(name: String)
 

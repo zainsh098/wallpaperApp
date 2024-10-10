@@ -69,6 +69,8 @@ class WallpaperFragment : Fragment(), onImageClick {
             if (error != null) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
+
+
         }
     }
 

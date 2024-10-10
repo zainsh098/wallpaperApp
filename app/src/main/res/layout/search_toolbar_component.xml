@@ -5,22 +5,35 @@
     android:layout_height="@dimen/_60sdp"
     android:background="@color/lightBlack">
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_27sdp"
+        android:layout_height="@dimen/_27sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/back_arrow_background"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchTextField"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
     <EditText
         android:id="@+id/searchTextField"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_50sdp"
         android:background="@color/black"
         android:hint="@string/search"
         android:inputType="text"
-        android:maxLength="1"
-        android:textSize="@dimen/_12ssp"
+        android:maxLength="10"
         android:maxLines="0"
         android:paddingStart="@dimen/_10sdp"
         android:textColor="@color/white"
         android:textColorHint="@color/lightGrey"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,10 +42,8 @@
         android:id="@+id/searchImage"
         android:layout_width="0dp"
         android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/searchicon"
         android:padding="@dimen/_2sdp"
-
-
+        android:src="@drawable/searchicon"
         app:layout_constraintBottom_toBottomOf="@+id/searchTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchTextField"

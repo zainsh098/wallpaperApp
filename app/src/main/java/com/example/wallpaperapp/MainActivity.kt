@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.splashFragment -> hideBottomNav()
                 R.id.homeFragment -> showBottomNav()
+                R.id.searchFragment->hideBottomNav()
                 R.id.fullScreenImageFragment->hideBottomNav()
                 else -> showBottomNav()
             }

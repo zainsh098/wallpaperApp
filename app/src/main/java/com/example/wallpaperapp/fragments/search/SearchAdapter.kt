@@ -19,7 +19,6 @@ class SearchAdapter(private val listener: onImageClick) : RecyclerView.Adapter<S
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchAdapter.MyViewHolder {
         val binding =
             WallpaperCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return MyViewHolder(binding)
     }
 
