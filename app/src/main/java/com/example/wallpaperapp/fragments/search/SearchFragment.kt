@@ -22,7 +22,6 @@ class SearchFragment : Fragment(), onImageClick {
     private lateinit var adapter: SearchAdapter
     private val viewModel: WallpaperViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,11 +45,6 @@ class SearchFragment : Fragment(), onImageClick {
                 findNavController().navigate(R.id.action_searchFragment_to_homeFragment)
 
             }
-
-
-
-
-
         }
 
 //        viewModel.isLoading.observe(viewLifecycleOwner){
