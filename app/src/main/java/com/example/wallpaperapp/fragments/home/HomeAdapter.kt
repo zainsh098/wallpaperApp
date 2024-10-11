@@ -12,6 +12,14 @@ class HomeAdapter(
 ) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding: HomeCardItemBinding) : RecyclerView.ViewHolder(binding.root)
+    {
+
+        fun bind(categories: Category)
+        {
+            binding.txtCategory.text=categories.name
+            binding.imageViewCategory.setImageResource(categories.image)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
@@ -25,18 +33,11 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val category = categories[position]
-        holder.binding.txtCategory.text = category.name
+        holder.bind(categories[position])
         holder.binding.imageViewCategory.setOnClickListener {
             listener.onClick(category.name)
         }
-        holder.binding.imageViewCategory.setImageResource(category.image)
-
-//        Glide.with(holder.itemView.context)
-//            .load(category.image)
-//            .placeholder(R.drawable.placeholder_image)
-//            .into(holder.binding.imageViewCategory)
-    }
-
+ }
 }
 
 interface onCategoryItemClick {
