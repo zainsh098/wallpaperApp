@@ -45,10 +45,14 @@ class HomeFragment : Fragment(), onCategoryItemClick {
 
         networkViewModel.isOnline.observe(viewLifecycleOwner) { isOnline ->
             if (isOnline) {
-                Snackbar.make(binding.root,"Network is Online",Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Network is Online", Snackbar.LENGTH_LONG).show()
 //                showToast("Network is Back")
             } else {
-                Snackbar.make(binding.root,"Network is Offline",Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    "Check your Internet ! Network is Offline",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -59,6 +63,6 @@ class HomeFragment : Fragment(), onCategoryItemClick {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG,).show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }
