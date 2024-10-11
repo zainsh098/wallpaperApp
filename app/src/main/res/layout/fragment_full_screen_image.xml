@@ -73,8 +73,26 @@
                 android:background="@drawable/back_arrow_background"
                 android:padding="@dimen/_6sdp"
                 app:srcCompat="@drawable/setimage" />
-
         </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/blurredBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_fade"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLargeInverse"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center"
+                android:indeterminateDrawable="@drawable/custom_progress_bar"
+                android:visibility="visible" />
+        </FrameLayout>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

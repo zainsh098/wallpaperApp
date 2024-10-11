@@ -30,6 +30,7 @@ class FullScreenImageFragment : Fragment() {
         binding = FragmentFullScreenImageBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val url = arguments?.getString("image")
@@ -38,7 +39,6 @@ class FullScreenImageFragment : Fragment() {
             .load(url)
             .placeholder(R.drawable.place_holderimage)
             .into(binding.fullImage)
-
 
         binding.backArrow.setOnClickListener {
             val origin = arguments?.getString("origin")
@@ -49,7 +49,7 @@ class FullScreenImageFragment : Fragment() {
             }
         }
         binding.apply {
-          imageShare.setOnClickListener {
+            imageShare.setOnClickListener {
                 url?.let { shareImageUrl(it) }
             }
             imageDownload.setOnClickListener {
@@ -64,7 +64,8 @@ class FullScreenImageFragment : Fragment() {
             imageSetWallpaper.setOnClickListener {
                 url?.let { showSetWallpaperDialog(it) }
             }
-        } }
+        }
+    }
 
     private fun shareImageUrl(url: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -79,9 +80,10 @@ class FullScreenImageFragment : Fragment() {
         val dialogBinding = DialogSetWallpaperBinding.inflate(layoutInflater)
         val radioGroup = dialogBinding.wallpaperRadioGroup
 
-        val dialog = AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
             .setView(dialogBinding.root)
-            .setPositiveButton("Set") { _, _ ->
+            .setPositiveButton("Set") { dialogInterface, _ ->
+
                 val selectedId = radioGroup.checkedRadioButtonId
                 when (selectedId) {
                     R.id.radioHome -> downloadImageForWallpaper(url, WallpaperManager.FLAG_SYSTEM)
@@ -91,10 +93,13 @@ class FullScreenImageFragment : Fragment() {
                         WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
                     )
                 }
+                dialogInterface.dismiss()
+                binding.blurredBackground.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
+
             }
             .setNegativeButton("Cancel", null)
             .create()
-
         dialog.show()
     }
 
@@ -108,6 +113,9 @@ class FullScreenImageFragment : Fragment() {
                     transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
                 ) {
                     viewModel.setWallpaper(requireContext(), resource, wallpaperType)
+                    binding.blurredBackground.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {}
