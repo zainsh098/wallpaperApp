@@ -1,8 +1,6 @@
 package com.example.wallpaperapp.manager
 
 object CategoryManager {
-
-
     private var categoryName: String? = null
 
     fun setCategoryName(name: String?) {
@@ -12,6 +10,4 @@ object CategoryManager {
     fun getCategoryName(): String? {
         return categoryName
     }
-
-
 }
