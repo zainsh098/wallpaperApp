@@ -8,15 +8,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class ConnectivityRepository(context: Context) {
 
-
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val _isConnected = MutableStateFlow(false)
     val isConnected: Flow<Boolean> = _isConnected
 
-
     init {
-
         connectivityManager.registerDefaultNetworkCallback(object :
             ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
@@ -27,10 +24,7 @@ class ConnectivityRepository(context: Context) {
             override fun onLost(network: Network) {
                 super.onLost(network)
                 _isConnected.value = false
-
             }
-
         })
-
     }
 }
