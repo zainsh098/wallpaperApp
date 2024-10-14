@@ -23,6 +23,7 @@ class FullScreenImageViewModel : ViewModel() {
 
     fun downloadAndSaveImage(context: Context, url: String, imageName: String) {
         // Use Glide to download the image
+        // GLide utils code  move here
         Glide.with(context)
             .asBitmap()
             .load(url)

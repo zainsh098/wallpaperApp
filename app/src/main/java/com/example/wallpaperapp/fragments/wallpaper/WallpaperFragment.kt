@@ -13,24 +13,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
+import com.example.wallpaperapp.basefragment.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentWallpaperBinding
 import com.example.wallpaperapp.manager.CategoryManager
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class WallpaperFragment : Fragment(), onImageClick {
+class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpaperBinding::inflate), onImageClick {
 
-    private lateinit var binding: FragmentWallpaperBinding
     private val viewModel: WallpaperViewModel by viewModels()
     private lateinit var adapter: WallpaperAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentWallpaperBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +47,7 @@ class WallpaperFragment : Fragment(), onImageClick {
 
         if (category != null) {
             lifecycleScope.launch {
-                viewModel.getPagedWallpapers(category).collectLatest { pagingData ->
+                viewModel.getPagedWallpapers(category).collect { pagingData ->
                     adapter.submitData(pagingData)
                 }
             }

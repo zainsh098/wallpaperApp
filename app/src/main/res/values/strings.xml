@@ -12,4 +12,14 @@
     <string name="both">Both</string>
     <string name="lock_screen">Lock Screen</string>
     <string name="home_screen">Home Screen</string>
+    <string name="image">image</string>
+    <string name="origin">origin</string>
+    <string name="wallpaper">wallpaper_%1$s</string>
+    <string name="shared_image">Shared Image</string>
+    <string name="check_out_this_awesome_image">Check out this awesome image: %1$s</string>
+    <string name="share_image_url">Share Image URL</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
+    <string name="network_is_online">Network is Online</string>
+    <string name="check_your_internet_network_is_offline">Check your Internet! Network is Offline</string>
 </resources>

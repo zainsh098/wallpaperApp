@@ -12,27 +12,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
+import com.example.wallpaperapp.basefragment.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentSearchBinding
 import com.example.wallpaperapp.fragments.wallpaper.onImageClick
 import com.example.wallpaperapp.manager.CategoryManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SearchFragment : Fragment(), onImageClick {
+class SearchFragment :  BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate), onImageClick {
 
-    private lateinit var binding: FragmentSearchBinding
     private lateinit var adapter: SearchAdapter
-
-    //    private val viewModel: WallpaperViewModel by viewModels()
     private val viewModel: SearchViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,9 +65,7 @@ class SearchFragment : Fragment(), onImageClick {
             }
 
         }
-
     }
-
     override fun onPhotoClick(urlImage: String) {
         val bundle = Bundle().apply {
             putString("image", urlImage)

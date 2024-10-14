@@ -9,7 +9,6 @@ import androidx.paging.cachedIn
 import com.example.wallpaperapp.model.Photo
 import com.example.wallpaperapp.repository.WallpaperRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class WallpaperViewModel : ViewModel() {
 
@@ -28,24 +27,24 @@ class WallpaperViewModel : ViewModel() {
         return repository.getPagedWallpapers(query).cachedIn(viewModelScope)
     }
 
-    // Keeping the original non-paginated function as is
-    fun getWallpapers(query: String): LiveData<List<Photo>> {
-        viewModelScope.launch {
-            try {
-                val response = repository.getWallpapers(query)
-                if (response.photos.isEmpty()) {
-                    _errorMessage.value = "No wallpapers found for $query"
-                } else {
-                    _wallpapers.value = response.photos
-
-                }
-            } catch (e: Exception) {
-                _errorMessage.value = "Error fetching wallpapers: ${e.localizedMessage}"
-
-            }
-        }
-
-        return wallpapers
-
-    }
+//    // Keeping the original non-paginated function as is
+//    fun getWallpapers(query: String): LiveData<List<Photo>> {
+//        viewModelScope.launch {
+//            try {
+//                val response = repository.getWallpapers(query)
+//                if (response.photos.isEmpty()) {
+//                    _errorMessage.value = "No wallpapers found for $query"
+//                } else {
+//                    _wallpapers.value = response.photos
+//
+//                }
+//            } catch (e: Exception) {
+//                _errorMessage.value = "Error fetching wallpapers: ${e.localizedMessage}"
+//
+//            }
+//        }
+//
+//        return wallpapers
+//
+//    }
 }

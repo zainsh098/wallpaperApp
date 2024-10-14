@@ -6,34 +6,24 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.wallpaperapp.R
+import com.example.wallpaperapp.basefragment.BaseFragment
 import com.example.wallpaperapp.databinding.DialogSetWallpaperBinding
 import com.example.wallpaperapp.databinding.FragmentFullScreenImageBinding
 
-class FullScreenImageFragment : Fragment() {
+class FullScreenImageFragment :
+    BaseFragment<FragmentFullScreenImageBinding>(FragmentFullScreenImageBinding::inflate) {
 
-    private lateinit var binding: FragmentFullScreenImageBinding
     private val viewModel: FullScreenImageViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFullScreenImageBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val url = arguments?.getString("image")
+        val url = arguments?.getString(getString(R.string.image))
 
         Glide.with(this)
             .load(url)
@@ -41,8 +31,8 @@ class FullScreenImageFragment : Fragment() {
             .into(binding.fullImage)
 
         binding.backArrow.setOnClickListener {
-            val origin = arguments?.getString("origin")
-            if (origin == "search") {
+            val origin = arguments?.getString(getString(R.string.origin))
+            if (origin == getString(R.string.search)) {
                 findNavController().navigate(R.id.action_fullScreenImageFragment_to_searchFragment)
             } else {
                 findNavController().navigate(R.id.action_fullScreenImageFragment_to_wallpaperFragment)
@@ -70,9 +60,12 @@ class FullScreenImageFragment : Fragment() {
     private fun shareImageUrl(url: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Shared Image")
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this awesome image: $url")
-        val chooserIntent = Intent.createChooser(shareIntent, "Share Image URL")
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shared_image))
+        shareIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            getString(R.string.check_out_this_awesome_image, url)
+        )
+        val chooserIntent = Intent.createChooser(shareIntent, getString(R.string.share_image_url))
         startActivity(chooserIntent)
     }
 
@@ -82,7 +75,7 @@ class FullScreenImageFragment : Fragment() {
 
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
             .setView(dialogBinding.root)
-            .setPositiveButton("Set") { dialogInterface, _ ->
+            .setPositiveButton(getString(R.string.set)) { dialogInterface, _ ->
 
                 val selectedId = radioGroup.checkedRadioButtonId
                 when (selectedId) {
@@ -98,7 +91,7 @@ class FullScreenImageFragment : Fragment() {
                 binding.progressBar.visibility = View.VISIBLE
 
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .create()
         dialog.show()
     }

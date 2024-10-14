@@ -13,6 +13,7 @@ import com.example.wallpaperapp.model.Photo
 class WallpaperAdapter(private val listener: onImageClick) :
     PagingDataAdapter<Photo, WallpaperAdapter.MyViewHolder>(WallpaperDiffCallback()) {
 
+
     class MyViewHolder(val binding: WallpaperCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -39,7 +40,6 @@ class WallpaperAdapter(private val listener: onImageClick) :
         }
     }
 
-    // DiffUtil to efficiently update items
     class WallpaperDiffCallback : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             return oldItem.id == newItem.id

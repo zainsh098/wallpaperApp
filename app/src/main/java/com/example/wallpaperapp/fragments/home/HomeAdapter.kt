@@ -1,6 +1,8 @@
 package com.example.wallpaperapp.fragments.home
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wallpaperapp.databinding.HomeCardItemBinding
@@ -11,25 +13,28 @@ class HomeAdapter(
     private val listener: onCategoryItemClick
 ) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
-    class MyViewHolder(val binding: HomeCardItemBinding) : RecyclerView.ViewHolder(binding.root)
-    {
+   inner class MyViewHolder(val binding: HomeCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(categories: Category)
-        {
-            binding.txtCategory.text=categories.name
+        fun bind(categories: Category) {
+            binding.txtCategory.text = categories.name
             binding.imageViewCategory.setImageResource(categories.image)
+
         }
     }
 
+    val Context.layoutInflater:LayoutInflater
+        get() = LayoutInflater.from(this)
+
+    val View.layoutInflater:LayoutInflater
+        get() = LayoutInflater.from(context)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding =
-            HomeCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(
+            HomeCardItemBinding.inflate(parent.layoutInflater, parent, false)
+        )
     }
 
-    override fun getItemCount(): Int {
-        return categories.size
-    }
+    override fun getItemCount()= categories.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val category = categories[position]
@@ -37,10 +42,9 @@ class HomeAdapter(
         holder.binding.imageViewCategory.setOnClickListener {
             listener.onClick(category.name)
         }
- }
+    }
 }
 
 interface onCategoryItemClick {
     fun onClick(name: String)
-
 }

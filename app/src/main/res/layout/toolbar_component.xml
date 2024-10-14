@@ -6,13 +6,12 @@
     android:layout_height="@dimen/_60sdp"
     android:background="@drawable/toolbar_round">
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_arrow"
         android:layout_width="@dimen/_27sdp"
         android:layout_height="@dimen/_27sdp"
         android:layout_marginStart="@dimen/_5sdp"
-        android:padding="@dimen/_2sdp"
+        android:padding="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,6 +31,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Wallify" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
