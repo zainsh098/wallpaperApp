@@ -71,10 +71,9 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:background="@drawable/back_arrow_background"
-                android:padding="@dimen/_6sdp"
+                android:padding="@dimen/_7sdp"
                 app:srcCompat="@drawable/setimage" />
         </LinearLayout>
-
 
         <FrameLayout
             android:id="@+id/blurredBackground"
