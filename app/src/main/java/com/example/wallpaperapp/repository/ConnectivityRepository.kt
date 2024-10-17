@@ -20,7 +20,6 @@ class ConnectivityRepository(context: Context) {
                 super.onAvailable(network)
                 _isConnected.value = true
             }
-
             override fun onLost(network: Network) {
                 super.onLost(network)
                 _isConnected.value = false

@@ -14,8 +14,7 @@ class HomeAdapter(
 ) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
    inner class MyViewHolder(val binding: HomeCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(categories: Category) {
+       fun bind(categories: Category) {
             binding.txtCategory.text = categories.name
             binding.imageViewCategory.setImageResource(categories.image)
 

@@ -12,9 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.wallpaperapp.R
-import com.example.wallpaperapp.basefragment.BaseFragment
+import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.DialogSetWallpaperBinding
 import com.example.wallpaperapp.databinding.FragmentFullScreenImageBinding
+import com.example.wallpaperapp.ext.showToast
 
 class FullScreenImageFragment :
     BaseFragment<FragmentFullScreenImageBinding>(FragmentFullScreenImageBinding::inflate) {
@@ -53,6 +54,7 @@ class FullScreenImageFragment :
             }
             imageSetWallpaper.setOnClickListener {
                 url?.let { showSetWallpaperDialog(it) }
+                observeMessage()
             }
         }
     }
@@ -96,6 +98,38 @@ class FullScreenImageFragment :
         dialog.show()
     }
 
+
+    private fun observeMessage() {
+
+        successHome()
+        successLockScreen()
+        errorMessage()
+
+    }
+
+    private fun successHome() {
+        viewModel.messageHome.observe(viewLifecycleOwner) { message ->
+            context?.showToast(message)
+        }
+
+    }
+
+    private fun successLockScreen() {
+        viewModel.messageLock.observe(viewLifecycleOwner)
+        { message ->
+            context?.showToast(message)
+        }
+    }
+
+    private fun errorMessage() {
+
+        viewModel.messageError.observe(viewLifecycleOwner)
+        { message ->
+            context?.showToast(message)
+        }
+    }
+
+
     private fun downloadImageForWallpaper(url: String, wallpaperType: Int) {
         Glide.with(this)
             .asBitmap()
@@ -106,6 +140,7 @@ class FullScreenImageFragment :
                     transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
                 ) {
                     viewModel.setWallpaper(requireContext(), resource, wallpaperType)
+
                     binding.blurredBackground.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
 

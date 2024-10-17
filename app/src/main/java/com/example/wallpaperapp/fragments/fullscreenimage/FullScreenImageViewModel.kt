@@ -11,19 +11,29 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.wallpaperapp.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
 class FullScreenImageViewModel : ViewModel() {
 
+    private val _messageHome: MutableLiveData<String> = MutableLiveData<String>()
+    val messageHome: MutableLiveData<String> = _messageHome
+
+    private val _messageLock: MutableLiveData<String> = MutableLiveData<String>()
+    val messageLock: MutableLiveData<String> = _messageLock
+
+    private val _messageError: MutableLiveData<String> = MutableLiveData<String>()
+    val messageError: MutableLiveData<String> = _messageError
+
     fun downloadAndSaveImage(context: Context, url: String, imageName: String) {
-        // Use Glide to download the image
-        // GLide utils code  move here
+
         Glide.with(context)
             .asBitmap()
             .load(url)
@@ -43,7 +53,7 @@ class FullScreenImageViewModel : ViewModel() {
 
     private fun saveImageToGallery(context: Context, bitmap: Bitmap, imageName: String) {
         val fos: OutputStream?
-        val folderName = "WallpaperAppImages"
+        val folderName = context.getString(R.string.wallpaperappimages)
 
         // Check if the device is running on Android Q or later
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -80,10 +90,12 @@ class FullScreenImageViewModel : ViewModel() {
             context.sendBroadcast(intent)
         }
 
-        // Compress and write the bitmap to the file output stream
         fos?.use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            Toast.makeText(context, "Image saved to gallery!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.image_saved_to_gallery), Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -94,12 +106,16 @@ class FullScreenImageViewModel : ViewModel() {
             when (wallpaperType) {
                 WallpaperManager.FLAG_SYSTEM -> {
                     wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
-                    Toast.makeText(context, "Home screen wallpaper set!", Toast.LENGTH_SHORT).show()
+                    _messageHome.value="Home screen wallpaper set!"
+//                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
                 }
 
                 WallpaperManager.FLAG_LOCK -> {
+
                     wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
-                    Toast.makeText(context, "Lock screen wallpaper set!", Toast.LENGTH_SHORT).show()
+                    _messageLock.value="Lock screen wallpaper set!"
+
+//                    Toast.makeText(context, "Lock screen wallpaper set!", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {
@@ -118,7 +134,8 @@ class FullScreenImageViewModel : ViewModel() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(context, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
+            _messageError.value="Failed to set wallpaper!"
         }
     }
 }
