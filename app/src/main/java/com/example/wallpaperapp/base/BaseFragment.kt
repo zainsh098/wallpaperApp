@@ -27,7 +27,4 @@ abstract class BaseFragment<Binding : ViewBinding>(private val bindingInflater: 
     ): View? {
         binding = bindingInflater(inflater)
         return binding.root
-    }
-
-
-}
+    } }
