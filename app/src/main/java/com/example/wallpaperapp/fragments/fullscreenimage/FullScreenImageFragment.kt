@@ -16,15 +16,24 @@ import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.DialogSetWallpaperBinding
 import com.example.wallpaperapp.databinding.FragmentFullScreenImageBinding
 import com.example.wallpaperapp.ext.showToast
+import com.example.wallpaperapp.fragments.favourite.FavouriteViewModel
+import com.example.wallpaperapp.model.Favourite
+import com.example.wallpaperapp.repository.FavouriteRepoImplementation
+import com.example.wallpaperapp.room.FavouriteDatabase
 
 class FullScreenImageFragment :
-
     BaseFragment<FragmentFullScreenImageBinding>(FragmentFullScreenImageBinding::inflate) {
 
     private val viewModel: FullScreenImageViewModel by viewModels()
+    private lateinit var favouriteViewModel: FavouriteViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        favouriteViewModel = FavouriteViewModel(
+            FavouriteRepoImplementation(
+                FavouriteDatabase.getDatabase(requireContext()).favouriteDao()
+            )
+        )
 
         val url = arguments?.getString(getString(R.string.image))
         val alt = arguments?.getString("alt")
@@ -46,10 +55,9 @@ class FullScreenImageFragment :
         }
 
         binding.imageAlt.setOnClickListener {
-
-            showDialog(alt.toString())
+            val favourite = Favourite(url!!) // Create your Favourite object
+            favouriteViewModel.addFavourite(favourite)
         }
-
 
         binding.apply {
             imageShare.setOnClickListener {
@@ -72,27 +80,22 @@ class FullScreenImageFragment :
     }
 
     private fun showDialog(alt: String) {
-        val builder = AlertDialog.Builder(requireContext(),R.style.CustomAlertDialogTheme)
+        val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
         builder.setTitle("alt")
-
-        builder.setMessage(alt)
-        // Create the dialog
-        val dialog: AlertDialog = builder.create()
-
-        // Set the dialog to dismiss when touched outside
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.show()
+            .setMessage(alt)
+            .setCancelable(true)
+            .show()
     }
 
     private fun shareImageUrl(url: String) {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shared_image))
-        shareIntent.putExtra(
-            Intent.EXTRA_TEXT,
-            getString(R.string.check_out_this_awesome_image, url)
-        )
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shared_image))
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.check_out_this_awesome_image, url)
+            )
+        }
         val chooserIntent = Intent.createChooser(shareIntent, getString(R.string.share_image_url))
         startActivity(chooserIntent)
     }
@@ -105,7 +108,6 @@ class FullScreenImageFragment :
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
             .setView(dialogBinding.root)
             .setPositiveButton(getString(R.string.set)) { dialogInterface, _ ->
-
                 val selectedId = radioGroup.checkedRadioButtonId
                 when (selectedId) {
                     R.id.radioHome -> downloadImageForWallpaper(url, WallpaperManager.FLAG_SYSTEM)
