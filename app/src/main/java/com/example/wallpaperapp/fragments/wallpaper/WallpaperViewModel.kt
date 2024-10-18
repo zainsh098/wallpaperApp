@@ -26,8 +26,8 @@ class WallpaperViewModel : ViewModel() {
     fun getPagedWallpapers(query: String): Flow<PagingData<Photo>> {
         return repository.getPagedWallpapers(query).cachedIn(viewModelScope)
     }
-
-    // Keeping the original non-paginated function as is
+//
+////     Keeping the original non-paginated function as is
 //    fun getWallpapers(query: String): LiveData<List<Photo>> {
 //        viewModelScope.launch {
 //            try {

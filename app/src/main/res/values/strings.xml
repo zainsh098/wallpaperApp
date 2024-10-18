@@ -22,4 +22,6 @@
     <string name="cancel">Cancel</string>
     <string name="network_is_online">Network is Online</string>
     <string name="check_your_internet_network_is_offline">Check your Internet! Network is Offline</string>
+    <string name="wallpaperappimages">WallpaperAppImages</string>
+    <string name="image_saved_to_gallery">Image saved to gallery!</string>
 </resources>

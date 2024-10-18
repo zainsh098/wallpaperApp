@@ -18,19 +18,24 @@ import com.example.wallpaperapp.databinding.FragmentFullScreenImageBinding
 import com.example.wallpaperapp.ext.showToast
 
 class FullScreenImageFragment :
+
     BaseFragment<FragmentFullScreenImageBinding>(FragmentFullScreenImageBinding::inflate) {
 
     private val viewModel: FullScreenImageViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val url = arguments?.getString(getString(R.string.image))
 
+        val url = arguments?.getString(getString(R.string.image))
+        val alt = arguments?.getString("alt")
+
+        // Load the image using Glide
         Glide.with(this)
             .load(url)
             .placeholder(R.drawable.place_holderimage)
             .into(binding.fullImage)
 
+        // Back arrow navigation
         binding.backArrow.setOnClickListener {
             val origin = arguments?.getString(getString(R.string.origin))
             if (origin == getString(R.string.search)) {
@@ -39,6 +44,13 @@ class FullScreenImageFragment :
                 findNavController().navigate(R.id.action_fullScreenImageFragment_to_wallpaperFragment)
             }
         }
+
+        binding.imageAlt.setOnClickListener {
+
+            showDialog(alt.toString())
+        }
+
+
         binding.apply {
             imageShare.setOnClickListener {
                 url?.let { shareImageUrl(it) }
@@ -54,9 +66,23 @@ class FullScreenImageFragment :
             }
             imageSetWallpaper.setOnClickListener {
                 url?.let { showSetWallpaperDialog(it) }
-                observeMessage()
+                observeMessage()  // Observe messages after setting wallpaper
             }
         }
+    }
+
+    private fun showDialog(alt: String) {
+        val builder = AlertDialog.Builder(requireContext(),R.style.CustomAlertDialogTheme)
+        builder.setTitle("alt")
+
+        builder.setMessage(alt)
+        // Create the dialog
+        val dialog: AlertDialog = builder.create()
+
+        // Set the dialog to dismiss when touched outside
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
     }
 
     private fun shareImageUrl(url: String) {
@@ -71,6 +97,7 @@ class FullScreenImageFragment :
         startActivity(chooserIntent)
     }
 
+    // Show dialog for setting wallpaper to home, lock, or both
     private fun showSetWallpaperDialog(url: String) {
         val dialogBinding = DialogSetWallpaperBinding.inflate(layoutInflater)
         val radioGroup = dialogBinding.wallpaperRadioGroup
@@ -91,45 +118,28 @@ class FullScreenImageFragment :
                 dialogInterface.dismiss()
                 binding.blurredBackground.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.VISIBLE
-
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .create()
         dialog.show()
     }
 
-
+    // Observe messages from ViewModel
     private fun observeMessage() {
-
-        successHome()
-        successLockScreen()
-        errorMessage()
-
-    }
-
-    private fun successHome() {
         viewModel.messageHome.observe(viewLifecycleOwner) { message ->
             context?.showToast(message)
         }
 
-    }
+        viewModel.messageLock.observe(viewLifecycleOwner) { message ->
+            context?.showToast(message)
+        }
 
-    private fun successLockScreen() {
-        viewModel.messageLock.observe(viewLifecycleOwner)
-        { message ->
+        viewModel.messageError.observe(viewLifecycleOwner) { message ->
             context?.showToast(message)
         }
     }
 
-    private fun errorMessage() {
-
-        viewModel.messageError.observe(viewLifecycleOwner)
-        { message ->
-            context?.showToast(message)
-        }
-    }
-
-
+    // Download image for wallpaper setting
     private fun downloadImageForWallpaper(url: String, wallpaperType: Int) {
         Glide.with(this)
             .asBitmap()
@@ -141,9 +151,9 @@ class FullScreenImageFragment :
                 ) {
                     viewModel.setWallpaper(requireContext(), resource, wallpaperType)
 
+                    // Hide progress and blurred background after setting wallpaper
                     binding.blurredBackground.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
-
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {}

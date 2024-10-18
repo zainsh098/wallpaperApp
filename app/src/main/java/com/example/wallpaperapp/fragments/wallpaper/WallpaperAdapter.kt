@@ -13,7 +13,6 @@ import com.example.wallpaperapp.model.Photo
 class WallpaperAdapter(private val listener: onImageClick) :
     PagingDataAdapter<Photo, WallpaperAdapter.MyViewHolder>(WallpaperDiffCallback()) {
 
-
     class MyViewHolder(val binding: WallpaperCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -35,7 +34,7 @@ class WallpaperAdapter(private val listener: onImageClick) :
                 .into(holder.binding.imageViewCategory)
 
             holder.binding.imageViewCategory.setOnClickListener {
-                listener.onPhotoClick(wallpaper.src.original)
+                listener.onPhotoClick(wallpaper.src.original, wallpaper.alt)
             }
         }
     }
@@ -52,5 +51,6 @@ class WallpaperAdapter(private val listener: onImageClick) :
 }
 
 interface onImageClick {
-    fun onPhotoClick(urlImage: String)
+    fun onPhotoClick(urlImage: String, alt: String)
+
 }

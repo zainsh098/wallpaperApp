@@ -27,6 +27,17 @@
             android:padding="@dimen/_5sdp"
             app:srcCompat="@drawable/back" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageAlt"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/back_arrow_background"
+            android:padding="@dimen/_5sdp"
+            app:srcCompat="@drawable/info" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +102,6 @@
                 android:indeterminateDrawable="@drawable/custom_progress_bar"
                 android:visibility="visible" />
         </FrameLayout>
-
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,8 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,7 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
-import com.example.wallpaperapp.basefragment.BaseFragment
+import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentWallpaperBinding
 import com.example.wallpaperapp.manager.CategoryManager
 import kotlinx.coroutines.launch
@@ -65,9 +62,10 @@ class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpape
         }
     }
 
-    override fun onPhotoClick(urlImage: String) {
+    override fun onPhotoClick(urlImage: String,alt:String) {
         val bundle = Bundle().apply {
             putString("image", urlImage)
+            putString("alt",alt)
         }
         findNavController().navigate(
             R.id.action_wallpaperFragment_to_fullScreenImageFragment,

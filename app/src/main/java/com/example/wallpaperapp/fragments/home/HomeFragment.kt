@@ -2,7 +2,6 @@ package com.example.wallpaperapp.fragments.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,7 +14,8 @@ import com.example.wallpaperapp.viewmodel.NetworkViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
-class HomeFragment() : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), onCategoryItemClick {
+class HomeFragment() : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
+    onCategoryItemClick {
 
     private lateinit var homeAdapter: HomeAdapter
     private val homeViewModel: HomeViewModel by viewModels()
@@ -27,13 +27,14 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::in
         val connectivityRepository = ConnectivityRepository(requireContext())
 
 
-        // binding use krni ha idhr
+        homeAdapter = HomeAdapter(homeViewModel.categories, this)
 
+        // binding use krni ha idhr
         binding.apply {
-           toolbarComponent.textToolbar.text = getString(R.string.wallify)
-           homeRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-           homeRecycler.adapter = homeAdapter
-           toolbarComponent.backArrow.visibility = View.GONE
+            toolbarComponent.textToolbar.text = getString(R.string.wallify)
+            homeRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
+            homeRecycler.adapter = homeAdapter
+            toolbarComponent.backArrow.visibility = View.GONE
         }
 
         networkViewModel = NetworkViewModel(connectivityRepository)
@@ -57,9 +58,9 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::in
         CategoryManager.setCategoryName(name)
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
+//    private fun showToast(message: String) {
+//        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+//    }
 
     private fun showSnackBar(message: String) {
         val snack = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)

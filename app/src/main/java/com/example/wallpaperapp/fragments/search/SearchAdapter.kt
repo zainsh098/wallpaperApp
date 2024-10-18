@@ -35,7 +35,7 @@ class SearchAdapter(private val listener: onImageClick) :
                 .into(holder.binding.imageViewCategory)
 
             holder.binding.imageViewCategory.setOnClickListener {
-                listener.onPhotoClick(wallpaper.src.original)
+                listener.onPhotoClick(wallpaper.src.original,wallpaper.alt)
             }
         }
     }

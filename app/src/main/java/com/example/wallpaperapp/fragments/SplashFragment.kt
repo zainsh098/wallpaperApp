@@ -9,22 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.wallpaperapp.R
+import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentSplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : Fragment() {
+class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
 
-
-    private lateinit var binding: FragmentSplashBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSplashBinding.inflate(layoutInflater)
-        return binding.root
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

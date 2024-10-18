@@ -12,6 +12,8 @@ class SearchViewModel:ViewModel() {
 
     private val repository = WallpaperRepository()
 
+
+
     fun getPagedWallpapers(query: String): Flow<PagingData<Photo>> {
         return repository.getPagedWallpapers(query).cachedIn(viewModelScope)
     }

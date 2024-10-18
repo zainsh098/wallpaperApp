@@ -18,7 +18,7 @@ class WallpaperPagingSource(
 
             LoadResult.Page(
 
-                data = response.photos ?: emptyList(),
+                data = response.photos?: emptyList(),
                 prevKey = if (currentPage == 1) null else currentPage - 1, // Previous page key
                 nextKey = if (response.photos.isEmpty()) null else currentPage + 1 // Next page key
             )

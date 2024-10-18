@@ -2,24 +2,22 @@ package com.example.wallpaperapp.fragments.search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
-import com.example.wallpaperapp.basefragment.BaseFragment
+import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentSearchBinding
 import com.example.wallpaperapp.fragments.wallpaper.onImageClick
 import com.example.wallpaperapp.manager.CategoryManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SearchFragment :  BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate), onImageClick {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),
+    onImageClick {
 
     private lateinit var adapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels()
@@ -50,8 +48,8 @@ class SearchFragment :  BaseFragment<FragmentSearchBinding>(FragmentSearchBindin
         binding.searchComponent.searchImage.setOnClickListener {
             val searchQuery = binding.searchComponent.searchTextField.text.toString().trim()
             CategoryManager.setCategoryName(searchQuery)
-
             if (searchQuery.isEmpty()) {
+
                 Toast.makeText(requireContext(), "Please enter a search term", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -66,9 +64,11 @@ class SearchFragment :  BaseFragment<FragmentSearchBinding>(FragmentSearchBindin
 
         }
     }
-    override fun onPhotoClick(urlImage: String) {
+
+    override fun onPhotoClick(urlImage: String, alt: String) {
         val bundle = Bundle().apply {
             putString("image", urlImage)
+            putString("alt", alt)
             putString("origin", "search") // Indicate that the origin is search
         }
         findNavController().navigate(

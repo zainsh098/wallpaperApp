@@ -44,7 +44,6 @@ class FullScreenImageViewModel : ViewModel() {
                 ) {
                     saveImageToGallery(context, resource, imageName)
                 }
-
                 override fun onLoadCleared(placeholder: Drawable?) {
                     // Handle when the image load is cleared (optional)
                 }

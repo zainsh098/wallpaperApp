@@ -14,14 +14,15 @@ class WallpaperRepository {
     val apiService = RetrofitClient.apiService
     private val apiKey = "563492ad6f917000010000014e171b66ad0446fb8573e7d3ea7394b5"
 
-    suspend fun getWallpapers(query: String): PexelsResponse {
-        return apiService.getWallpapers(apiKey, query, 1, perPage = 15)
-    }
+//    suspend fun getWallpapers(query: String): PexelsResponse {
+//        return apiService.getWallpapers(apiKey, query, 1, perPage = 15)
+//    }
 
     fun getPagedWallpapers(query: String): Flow<PagingData<Photo>> {
         return Pager(
-            config = PagingConfig(pageSize = 15, enablePlaceholders = false),
+            config = PagingConfig(pageSize = 15, enablePlaceholders = false,),
             pagingSourceFactory = {
+
                 WallpaperPagingSource(apiService, apiKey, query)
             }
         ).flow
