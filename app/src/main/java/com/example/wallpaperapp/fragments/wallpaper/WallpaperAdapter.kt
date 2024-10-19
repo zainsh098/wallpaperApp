@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.WallpaperCardItemBinding
 import com.example.wallpaperapp.model.Photo
@@ -28,13 +29,16 @@ class WallpaperAdapter(private val listener: onImageClick) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val wallpaper = getItem(position)
         if (wallpaper != null) {
+
             Glide.with(holder.itemView.context)
-                .load(wallpaper.src.portrait)
-                .placeholder(R.drawable.place_holderimage)
+                .load(wallpaper.src.portrait) // Load the low-resolution image for quicker display
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // Disable caching for thumbnails to reduce load time
+                .placeholder(R.drawable.place_holderimage) // Show a placeholder while loading
                 .into(holder.binding.imageViewCategory)
 
+            // Click listener to open full-screen view with original image
             holder.binding.imageViewCategory.setOnClickListener {
-                listener.onPhotoClick(wallpaper.src.original, wallpaper.alt)
+                listener.onPhotoClick(wallpaper)
             }
         }
     }
@@ -51,6 +55,5 @@ class WallpaperAdapter(private val listener: onImageClick) :
 }
 
 interface onImageClick {
-    fun onPhotoClick(urlImage: String, alt: String)
-
+    fun onPhotoClick(photo:Photo)
 }
