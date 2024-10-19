@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -11,8 +12,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentSearchBinding
+import com.example.wallpaperapp.fragments.wallpaper.SharedViewModel
 import com.example.wallpaperapp.fragments.wallpaper.onImageClick
 import com.example.wallpaperapp.manager.CategoryManager
+import com.example.wallpaperapp.model.Photo
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -21,6 +24,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private lateinit var adapter: SearchAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,12 +69,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
-    override fun onPhotoClick(urlImage: String, alt: String) {
+    override fun onPhotoClick(photo: Photo) {
+        sharedViewModel.selectedImageUrl = photo.url
+        sharedViewModel.selectedImageAlt = photo.alt
         val bundle = Bundle().apply {
-            putString("image", urlImage)
-            putString("alt", alt)
             putString("origin", "search") // Indicate that the origin is search
         }
+
         findNavController().navigate(
             R.id.action_searchFragment_to_fullScreenImageFragment,
             bundle

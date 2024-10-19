@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpaperapp.R
 import com.example.wallpaperapp.databinding.WallpaperCardItemBinding
 import com.example.wallpaperapp.fragments.wallpaper.onImageClick
@@ -23,6 +24,7 @@ class SearchAdapter(private val listener: onImageClick) :
         return MyViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // Use getItem() to get the item at the current position
         val wallpaper = getItem(position)
@@ -30,12 +32,12 @@ class SearchAdapter(private val listener: onImageClick) :
         // Check if the wallpaper is null (Paging can send null placeholders)
         wallpaper?.let {
             Glide.with(holder.itemView.context)
-                .load(wallpaper.src.portrait)
-                .placeholder(R.drawable.place_holderimage)
+                .load(wallpaper.src.portrait) // Load the low-resolution image for quicker display
+                .diskCacheStrategy(DiskCacheStrategy.ALL)// Disable caching for thumbnails to reduce load time
+                .placeholder(R.drawable.place_holderimage) // Show a placeholder while loading
                 .into(holder.binding.imageViewCategory)
-
             holder.binding.imageViewCategory.setOnClickListener {
-                listener.onPhotoClick(wallpaper.src.original,wallpaper.alt)
+                listener.onPhotoClick(wallpaper)
             }
         }
     }
