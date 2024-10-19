@@ -1,5 +1,6 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,20 +14,18 @@ import kotlinx.coroutines.flow.Flow
 class WallpaperViewModel : ViewModel() {
 
     private val repository = WallpaperRepository()
-
-    private val _wallpapers = MutableLiveData<List<Photo>>()
-    val wallpapers: LiveData<List<Photo>> = _wallpapers
+    var recyclerViewState: Parcelable? = null
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
-//    val isLoading=MutableLiveData<Boolean>()
-
 
     // Function to get paginated wallpapers
     fun getPagedWallpapers(query: String): Flow<PagingData<Photo>> {
         return repository.getPagedWallpapers(query).cachedIn(viewModelScope)
     }
-//
+
+}
+
 ////     Keeping the original non-paginated function as is
 //    fun getWallpapers(query: String): LiveData<List<Photo>> {
 //        viewModelScope.launch {
@@ -47,4 +46,9 @@ class WallpaperViewModel : ViewModel() {
 //        return wallpapers
 //
 //    }
+
+
+class SharedViewModel : ViewModel() {
+    var selectedImageUrl: String? = null
+    var selectedImageAlt: String? = null
 }
