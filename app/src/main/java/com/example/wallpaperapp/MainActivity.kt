@@ -1,7 +1,9 @@
 package com.example.wallpaperapp
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.lightBlack)
 
@@ -65,14 +68,4 @@ class MainActivity : AppCompatActivity() {
     private fun hideBottomNav() {
         binding.bottomNavView.visibility = View.GONE
     }
-
-//    private fun showSnackBar(message: String) {
-//        val snack = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
-//        snack.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-//        snack.setAction("dismiss") {
-//            snack.dismiss()
-//            snack.setAnimationMode(R.anim.slide_up)
-//        }
-//        snack.show()
-//    }
 }
