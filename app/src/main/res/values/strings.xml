@@ -24,4 +24,5 @@
     <string name="check_your_internet_network_is_offline">Check your Internet! Network is Offline</string>
     <string name="wallpaperappimages">WallpaperAppImages</string>
     <string name="image_saved_to_gallery">Image saved to gallery!</string>
+    <string name="added_to_favourites">Added to Favourites</string>
 </resources>
