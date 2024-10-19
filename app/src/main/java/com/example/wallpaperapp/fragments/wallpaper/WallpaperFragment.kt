@@ -1,8 +1,10 @@
 package com.example.wallpaperapp.fragments.wallpaper
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,21 +15,26 @@ import com.example.wallpaperapp.R
 import com.example.wallpaperapp.base.BaseFragment
 import com.example.wallpaperapp.databinding.FragmentWallpaperBinding
 import com.example.wallpaperapp.manager.CategoryManager
+import com.example.wallpaperapp.model.Photo
 import kotlinx.coroutines.launch
 
-class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpaperBinding::inflate), onImageClick {
+class WallpaperFragment : BaseFragment<FragmentWallpaperBinding>(FragmentWallpaperBinding::inflate),
+    onImageClick {
 
     private val viewModel: WallpaperViewModel by viewModels()
     private lateinit var adapter: WallpaperAdapter
+    private var recyclerViewState: Parcelable? = null
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = WallpaperAdapter(this)
         val category = CategoryManager.getCategoryName()
 
-//        val category = arguments?.getString("name")
-//        CategoryManager.setCategoryName(category)
-
+        viewModel.recyclerViewState?.let {
+            binding.wallapaperRecycler.layoutManager?.onRestoreInstanceState(it)
+        }
         binding.apply {
             wallapaperRecycler.layoutManager = GridLayoutManager(context, 2)
             wallapaperRecycler.adapter = adapter
@@ -35,9 +42,11 @@ class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpape
             wallapaperRecycler.addItemDecoration(
                 DividerItemDecoration(requireContext(), GridLayoutManager.HORIZONTAL)
             )
-            toolbarComponent.textToolbar.text = CategoryManager.getCategoryName()
 
-            toolbarComponent.backArrow.setOnClickListener {
+            toolbarComponent.textToolbar.text = CategoryManager.getCategoryName()
+            binding.toolbarComponent.backArrow.setOnClickListener {
+                viewModel.recyclerViewState =
+                    binding.wallapaperRecycler.layoutManager?.onSaveInstanceState()
                 findNavController().navigate(R.id.action_wallpaperFragment_to_homeFragment)
             }
         }
@@ -49,7 +58,6 @@ class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpape
                 }
             }
         } else {
-            // Handle the null case, e.g., show an error message or navigate back
             Toast.makeText(requireContext(), "Category not found", Toast.LENGTH_SHORT).show()
         }
 
@@ -57,19 +65,28 @@ class WallpaperFragment :BaseFragment<FragmentWallpaperBinding>(FragmentWallpape
             if (error != null) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
-    override fun onPhotoClick(urlImage: String,alt:String) {
-        val bundle = Bundle().apply {
-            putString("image", urlImage)
-            putString("alt",alt)
+    override fun onPause() {
+        super.onPause()
+        recyclerViewState = binding.wallapaperRecycler.layoutManager?.onSaveInstanceState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerViewState?.let {
+            binding.wallapaperRecycler.layoutManager?.onRestoreInstanceState(it)
         }
-        findNavController().navigate(
-            R.id.action_wallpaperFragment_to_fullScreenImageFragment,
-            bundle
-        )
+    }
+
+
+    override fun onPhotoClick(photo: Photo) {
+
+        sharedViewModel.selectedImageUrl = photo.src.original
+        sharedViewModel.selectedImageAlt = photo.alt
+        findNavController().navigate(R.id.action_wallpaperFragment_to_fullScreenImageFragment)
+        activity?.overridePendingTransition(R.anim.card_to_fullscreen, R.anim.card_to_fullscreen)
+
     }
 }
